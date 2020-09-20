@@ -1,5 +1,6 @@
 package ru.otus.demo.lessonstate;
 
+import android.content.Intent;
 import android.nfc.Tag;
 import android.os.Bundle;
 import android.os.PersistableBundle;
@@ -68,5 +69,22 @@ if(savedInstanceState != null){
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void startIntent(View view){
+        String textMessage = "our text";
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, textMessage);
+        sendIntent.setType("text/plain");
+
+        String title = "Поделиться";
+
+        Intent chooser = Intent.createChooser(sendIntent, title);
+
+        if(sendIntent.resolveActivity(getPackageManager()) != null){
+            startActivity(chooser);
+
+        }
     }
 }
